@@ -351,7 +351,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profile'),
-        backgroundColor: const Color(0xFF6366F1),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.w),
@@ -384,7 +384,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ElevatedButton(
               onPressed: _updateProfile,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF6366F1),
+                backgroundColor: const Color.fromARGB(255, 252, 252, 252),
                 padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 12.h),
               ),
               child: const Text('Save Changes'),

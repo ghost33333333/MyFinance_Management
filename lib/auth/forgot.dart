@@ -21,118 +21,135 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   Future<void> _resetPassword() async {
-    if (_emailController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your email')),
-      );
+    final email = _emailController.text.trim();
+    if (email.isEmpty) {
+      _showSnackBar('Please enter your email');
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
-
+    setState(() => _isLoading = true);
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(
-        email: _emailController.text.trim(),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Password reset link has been sent to your email')),
-      );
-      Navigator.pop(context); // Close dialog after sending email
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      _showSnackBar('Reset link sent to your email!');
+      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      String message;
-      if (e.code == 'user-not-found') {
-        message = 'No user found with this email.';
-      } else {
-        message = 'Failed to send password reset email.';
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      _showSnackBar(e.code == 'user-not-found'
+          ? 'No account found'
+          : 'Something went wrong');
     } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      setState(() => _isLoading = false);
     }
   }
 
-  void _showForgotPasswordDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(
-            'Forgot Password',
-            style: GoogleFonts.itim(
-              fontSize: 22,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-          ),
-          content: TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              labelText: 'Enter your email',
-              labelStyle: GoogleFonts.itim(fontSize: 18, color: Colors.black),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.black.withOpacity(0.4)),
-              ),
-              contentPadding: EdgeInsets.all(16),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close dialog
-              },
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.itim(fontSize: 18, color: Colors.black),
-              ),
-            ),
-            _isLoading
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _resetPassword,
-                    child: const Text('Reset Password'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: secondaryLight, // Consistent color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-          ],
-        );
-      },
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: message.contains('sent') ? Colors.green : Colors.redAccent,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: secondaryLight, // Consistent color
-        elevation: 0,
-        title: Text(
-          'Forgot Password',
-          style: GoogleFonts.itim(fontSize: 22, color: Colors.white),
+      backgroundColor: Colors.white, // White background
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: media.width * 0.06),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildHeader(),
+              SizedBox(height: media.height * 0.03),
+              _buildEmailField(media),
+              SizedBox(height: media.height * 0.03),
+              _buildResetButton(media),
+              SizedBox(height: media.height * 0.02),
+              _buildBackLink(),
+            ],
+          ),
         ),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: _showForgotPasswordDialog,
-          child: const Text('Forgot Password'),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: secondaryLight, // Consistent color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Text(
+      "Forgot Password?",
+      style: GoogleFonts.itim(
+        fontSize: 28,
+        fontWeight: FontWeight.w600,
+        color: Colors.blueAccent,
+      ),
+    );
+  }
+
+  Widget _buildEmailField(Size media) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 8,
+            offset: Offset(0, 2),
           ),
+        ],
+      ),
+      child: TextField(
+        controller: _emailController,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          hintText: "Enter your email",
+          prefixIcon: Icon(Icons.email_outlined, color: Colors.blueAccent),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 16),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildResetButton(Size media) {
+    return _isLoading
+        ? CircularProgressIndicator(color: Colors.blueAccent)
+        : ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blueAccent,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              elevation: 4,
+              minimumSize: Size(media.width * 0.7, 50),
+            ),
+            onPressed: _resetPassword,
+            child: Text(
+              "Send Reset Link",
+              style: GoogleFonts.itim(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          );
+  }
+
+  Widget _buildBackLink() {
+    return TextButton(
+      onPressed: () => Navigator.pop(context),
+      child: Text(
+        "Back to Login",
+        style: GoogleFonts.itim(
+          fontSize: 16,
+          color: Colors.blueAccent,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

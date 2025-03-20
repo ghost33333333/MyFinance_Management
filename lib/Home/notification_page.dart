@@ -4,9 +4,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart'; // For date formatting
 import 'package:provider/provider.dart';
 
-// Define the Transaction class to match the structure in TransactionProvider
+// Define the Transaction class (unchanged)
 class Transaction {
-  final String id; // Add ID for Firestore reference
+  final String id;
   final String title;
   final String description;
   final String date;
@@ -47,7 +47,7 @@ class NotificationsPage extends StatefulWidget {
 class _NotificationsPageState extends State<NotificationsPage> {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  bool _notificationsTriggered = false; // Flag to prevent multiple triggers
+  bool _notificationsTriggered = false;
 
   @override
   void initState() {
@@ -55,7 +55,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
     _initializeNotifications();
   }
 
-  // Initialize the notification settings
   Future<void> _initializeNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon'); // Replace with your app icon
@@ -66,7 +65,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  // Show a notification for a transaction
+  // Updated: Show notification with "pay" or "receive" based on transaction type
   Future<void> _showPaymentReminderNotification(Transaction transaction) async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -80,10 +79,15 @@ class _NotificationsPageState extends State<NotificationsPage> {
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 
-    await _flutterLocalNotificationsPlugin.show(
-      transaction.id.hashCode, // Use unique ID for each notification
+    // Customize message based on transaction type
+    String message = transaction.type == 'Expense'
+        ? 'You have to pay: ${transaction.description}'
+        : 'You have to receive: ${transaction.title}';
+
+    await _flutterLocalNotificationsPlugin.show( 
+      transaction.id.hashCode,
       'Payment Reminder',
-      'You have a payment: ${transaction.title}',
+      message,
       notificationDetails,
     );
   }
@@ -109,12 +113,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
             final todayTransactions =
                 transactions.where((t) => t.date == today).toList();
 
-            // Trigger notifications only once when data is first loaded
             if (todayTransactions.isNotEmpty && !_notificationsTriggered) {
               for (var transaction in todayTransactions) {
                 _showPaymentReminderNotification(transaction);
               }
-              _notificationsTriggered = true; // Prevent retriggering
+              _notificationsTriggered = true;
             }
 
             return Scaffold(
@@ -127,10 +130,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
                       itemCount: todayTransactions.length,
                       itemBuilder: (context, index) {
                         final transaction = todayTransactions[index];
+                        // Updated: Dynamic subtitle based on transaction type
+                        String actionText = transaction.type == 'Expense'
+                            ? 'You have to pay ${transaction.title}'
+                            : 'You have to receive ${transaction.title}';
                         return ListTile(
                           leading: const Icon(Icons.notifications),
                           title: Text(transaction.title),
-                          subtitle: Text(transaction.description),
+                          subtitle: Text(actionText),
                           trailing: Text(transaction.date),
                           onTap: () {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -150,6 +157,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 }
 
+// EmptyNotificationsScreen and ErrorInfo remain unchanged
 class EmptyNotificationsScreen extends StatelessWidget {
   const EmptyNotificationsScreen({super.key});
 
@@ -164,7 +172,7 @@ class EmptyNotificationsScreen extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               Icon(
-                Icons.notifications_off, // Empty notifications icon
+                Icons.notifications_off,
                 size: 100,
                 color: Colors.grey[400],
               ),
