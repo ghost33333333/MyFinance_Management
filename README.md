@@ -18,19 +18,23 @@ Delete Transaction: Remove unwanted transaction records.
 Add Category: Create custom categories (e.g., Food, Rent).
 Edit Category: Modify category names or details.
 Delete Category: Remove unused categories.
+
 📊 Dashboard
 Total Balance: View current balance (Income - Expenses).
 Income & Expense Summary: Quick overview of totals.
 Recent Transactions: See the latest transaction history.
+
 📈 Analytics Page
 Bar Graph: Visualize spending per category.
 Filtering Options:
 By Type: All, Income, Expense.
 By Time: Week, Month, Year.
+
 🔔 Notifications
 Local Notifications: Receive reminders or alerts for financial activities.
 🚀 Onboarding Screen
 Introduction Flow: Guides new users through key features on first launch.
+
 👤 Account Page
 User Details: Displays user info (e.g., name, email).
 Profile Management: Basic settings (under development).
@@ -42,6 +46,7 @@ Firestore: Stores transactions, categories, and user data.
 SharedPreferences: Local storage for preferences and session data.
 Local Notifications: Flutter Local Notifications for in-app alerts.
 State Management: Provider (for managing app state).
+
 🌐 Project Status
 This project is actively being developed. Planned or partially implemented features include:
 
