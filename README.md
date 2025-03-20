@@ -10,10 +10,13 @@ MyFinance is a personal finance management mobile application built with Flutter
 Signup: Register a new account with email and password.
 Signin: Log in using existing credentials.
 Signout: Securely log out from the app.
+
 💸 Transaction Management
-Add Transaction: Record new income or expense entries.
-Edit Transaction: Update details of existing transactions.
-Delete Transaction: Remove unwanted transaction records.
+
+Add Transaction: Record new income or expense entries.                                                
+Edit Transaction: Update details of existing transactions.                                                    
+Delete Transaction: Remove unwanted transaction records.                                              
+
 🗂️ Category Management
 Add Category: Create custom categories (e.g., Food, Rent).
 Edit Category: Modify category names or details.
@@ -113,8 +116,7 @@ For a specific device: flutter run -d <device-id>.
 Firebase Issues: Verify google-services.json and GoogleService-Info.plist placement.
 Build Errors: Run flutter clean then flutter pub get.
 Permissions: Ensure notification permissions are set.
-📁 Project Structure
-text
+ 
   
 🔮 Future Enhancements
 Add support for recurring transactions.
