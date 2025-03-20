@@ -1,16 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance/auth/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/transactionProvider.dart';
 import 'notification_page.dart'; // Ensure this file exists
-import 'package:firebase_auth/firebase_auth.dart';
-import '../auth/login.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 class DashboardScreen extends StatefulWidget {
   @override
-  DashboardScreenState createState() => DashboardScreenState();
+  _DashboardScreenState createState() => _DashboardScreenState();
 }
 
-class DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen> {
   // Helper method to group transactions by date
   Map<String, List<Map<String, dynamic>>> _groupTransactionsByDate(
       List<Map<String, dynamic>> transactions) {
@@ -43,7 +44,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   // Calculate total balance, income, and expenses
-  Map<String, double> calculateBalances(
+  Map<String, double> _calculateBalances(
       List<Map<String, dynamic>> transactions) {
     double totalBalance = 0;
     double income = 0;
@@ -65,6 +66,8 @@ class DashboardScreenState extends State<DashboardScreen> {
       'expenses': expenses,
     };
   }
+
+  // Fetch the user's first name from Firestore
   Future<String> _getUserFirstName() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -82,7 +85,6 @@ class DashboardScreenState extends State<DashboardScreen> {
     }
     return 'User'; // Fallback if no user or error
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +105,7 @@ class DashboardScreenState extends State<DashboardScreen> {
             }
 
             final transactions = snapshot.data!;
-            final balances = calculateBalances(transactions);
+            final balances = _calculateBalances(transactions);
             final transactionsByDate = _groupTransactionsByDate(transactions);
 
             return Scaffold(
