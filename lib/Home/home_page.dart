@@ -83,7 +83,7 @@ class DashboardScreenState extends State<DashboardScreen> {
     return 'User'; // Fallback if no user or error
   }
 
-
+ 
   @override
   Widget build(BuildContext context) {
     return Consumer<TransactionProvider>(
