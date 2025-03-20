@@ -117,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
 
-void _navigateToAuthScreen() async {
+void _navigateToAuthScreen() async { 
   final prefs = await SharedPreferences.getInstance();
   await prefs.setBool('onboarding_complete', true); // Store flag
 

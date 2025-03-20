@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/transactionProvider.dart';
 import 'notification_page.dart'; // Ensure this file exists
-
+import 'package:firebase_auth/firebase_auth.dart';
+import '../auth/login.dart';
 class DashboardScreen extends StatefulWidget {
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -111,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   IconButton(
                     icon: Stack(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.notifications, // Normal notification icon
                           color: const Color.fromARGB(255, 73, 176, 205),
                           size: 37,
@@ -135,6 +136,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => NotificationsPage()),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.exit_to_app),
+                    onPressed: () async {
+                      // Sign out from Firebase
+                      await FirebaseAuth.instance.signOut();
+
+                      // Navigate to the login screen immediately after sign-out
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginPage()), // Replace with your SignInPage widget
                       );
                     },
                   ),

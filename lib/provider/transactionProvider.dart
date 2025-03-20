@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class TransactionProvider with ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  
   Stream<List<Map<String, dynamic>>> get transactionsStream {
     final user = _auth.currentUser;
     if (user == null) {
