@@ -6,6 +6,12 @@ MyFinance is a personal finance management mobile application built with **Flutt
 
 ## ✨ Features
 
+<div style="display: flex; justify-content: space-around; align-items: center;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Firebase_Logo.png" alt="Firebase" style="width: 50px; height: 50px; border-radius: 50%; margin: 10px;" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Flutter-logo.svg" alt="Flutter" style="width: 50px; height: 50px; border-radius: 50%; margin: 10px;" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Dart-logo.png" alt="Dart" style="width: 50px; height: 50px; border-radius: 50%; margin: 10px;" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Provider-logo.png" alt="Provider" style="width: 50px; height: 50px; border-radius: 50%; margin: 10px;" />
+</div>
 ### 🔑 Authentication
 - **Signup**: Register a new account with email and password.
 - **Signin**: Log in using existing credentials.
