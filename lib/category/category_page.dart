@@ -79,7 +79,27 @@ class _CategoryManagementPageState extends State<CategoryManagementPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () => _showAddEditDialog(context, provider),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Add New Category',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20,),
                  Expanded(
                   child: provider.categories.isEmpty
                       ? const Center(
@@ -139,26 +159,7 @@ class _CategoryManagementPageState extends State<CategoryManagementPage> {
                         ),
                 ),
                 const SizedBox(height: 20),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () => _showAddEditDialog(context, provider),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 15,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Add New Category',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ),
+               
               ],
             ),
           ),

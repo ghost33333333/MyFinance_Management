@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../Home/notification_page.dart';
 
 class AccountPage extends StatelessWidget {
   @override
@@ -10,6 +11,7 @@ class AccountPage extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: const Color(0xFF6366F1),
             scaffoldBackgroundColor: const Color(0xFFF8FAFC),
@@ -56,13 +58,7 @@ class ProfileScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back_ios_new_rounded,
-                        size: 20.r, color: const Color(0xFF64748B)),
-                    onPressed: () {
-                      //  Navigator.pop(context);
-                    },
-                  ),
+                   
                   Text('Profile',
                       style: Theme.of(context).textTheme.headlineSmall),
                   IconButton(
@@ -96,9 +92,8 @@ class ProfileScreen extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 48.r,
                       backgroundColor: Colors.white,
-                      backgroundImage: const NetworkImage(
-                        'https://i.pravatar.cc/300',
-                      ),
+                      backgroundImage:
+                          const AssetImage('assets/images/dr4.png'),
                     ),
                   ),
                   SizedBox(height: 16.h),
@@ -143,35 +138,41 @@ class ProfileScreen extends StatelessWidget {
                       icon: FontAwesomeIcons.bank,
                       title: 'Bank Location',
                       subtitle: '7307 Grand Ave, Flushing NY 11347',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF6366F1),ontap: () {}
                     ),
                     _buildListItem(
                       icon: FontAwesomeIcons.wallet,
                       title: 'My Wallet',
                       subtitle: 'Manage your saved wallet',
-                      color: const Color(0xFF10B981),
+                      color: const Color(0xFF10B981),ontap: () {}
                     ),
                     _buildSectionHeader('Account'),
                     _buildListItem(
                       icon: FontAwesomeIcons.userGear,
                       title: 'Account Settings',
-                      color: const Color(0xFF3B82F6),
+                      color: const Color(0xFF3B82F6),ontap: () {}
                     ),
                     _buildListItem(
-                      icon: FontAwesomeIcons.bell,
-                      title: 'Notifications',
-                      color: const Color(0xFFF59E0B),
-                    ),
+                        icon: FontAwesomeIcons.bell,
+                        title: 'Notifications',
+                        color: const Color(0xFFF59E0B),
+                        ontap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const NotificationsPage()),
+                          );
+                        }),
                     _buildListItem(
-                      icon: FontAwesomeIcons.shieldHalved,
-                      title: 'Privacy',
-                      color: const Color(0xFF8B5CF6),
-                    ),
+                        icon: FontAwesomeIcons.shieldHalved,
+                        title: 'Privacy',
+                        color: const Color(0xFF8B5CF6),
+                        ontap: () {}),
                     _buildListItem(
-                      icon: FontAwesomeIcons.circleInfo,
-                      title: 'About',
-                      color: const Color(0xFF64748B),
-                    ),
+                        icon: FontAwesomeIcons.circleInfo,
+                        title: 'About',
+                        color: const Color(0xFF64748B),
+                        ontap: () {}),
                   ],
                 ),
               ),
@@ -201,6 +202,7 @@ class ProfileScreen extends StatelessWidget {
     required String title,
     String? subtitle,
     required Color color,
+    required VoidCallback ontap, // Add ontap parameter
   }) {
     return ListTile(
       leading: Container(
@@ -223,6 +225,7 @@ class ProfileScreen extends StatelessWidget {
       trailing: Icon(Icons.chevron_right_rounded,
           size: 20.r, color: const Color(0xFFCBD5E1)),
       contentPadding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
+      onTap: ontap, // Assign the ontap function here
     );
   }
 }

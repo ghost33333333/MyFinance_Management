@@ -109,8 +109,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 actions: [
                   IconButton(
-                    icon: const Icon(Icons.notifications,
-                        color: Color.fromARGB(255, 73, 176, 205)),
+                    icon: Stack(
+                      children: [
+                        Icon(
+                          Icons.notifications, // Normal notification icon
+                          color: const Color.fromARGB(255, 73, 176, 205),
+                          size: 37,
+                        ),
+                        Positioned(
+                          right: 6,
+                          top: 7,
+                          child: Container(
+                            width: 10,
+                            height: 10,
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
